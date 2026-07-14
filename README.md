@@ -50,6 +50,14 @@ Vercel is not required for this version. The app is designed to run on the Linux
    docker compose up --build
    ```
 
+   The detector image installs CPU-only PyTorch wheels by default. This avoids downloading large NVIDIA/CUDA packages on servers without a supported GPU.
+
+   If a previous detector build failed with `No space left on device`, free the partial Docker build cache before rebuilding:
+
+   ```bash
+   docker builder prune
+   ```
+
 4. Open the dashboard.
 
    ```text
@@ -117,4 +125,3 @@ curl -X POST http://localhost:3000/api/detector/status \
 - Start with email notifications, then add SMS after the detection logic is stable.
 - Avoid storing video. Store short-lived debug snapshots only if you need calibration evidence.
 - Use a UPS for the server and network gear if reliability matters.
-
